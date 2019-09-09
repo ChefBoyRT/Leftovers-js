@@ -10,4 +10,10 @@ class WastesController < ApplicationController
 
         render json: waste
     end
+
+    def destroy
+        waste = Waste.find(params[:id])
+        waste.destroy
+    end
+    
 end

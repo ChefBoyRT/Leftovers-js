@@ -28,4 +28,5 @@ class UsersController < ApplicationController
 
         render json: all_user_waste
     end
+
 end

@@ -1,9 +1,10 @@
 const BASE_URL = 'http://localhost:3000'
 const USERS_URL = `${BASE_URL}/users/`
+const WASTES_URL = `${BASE_URL}/wastes/`
 
 const $body = document.body
 const cardContainer = document.createElement('div')
-let user_id = 3
+let user_id = 1
 
 function getUserWastes() {
     fetch(`${USERS_URL}${user_id}`)
@@ -26,6 +27,7 @@ function createWasteCard(waste) {
     expirationDate.textContent = waste.expiration_date
     quantity.textContent = waste.quantity
     deleteButton.textContent = 'Delete'
+    deleteButton.id = waste.id
 
     addDeleteEvent(deleteButton)
 
@@ -39,11 +41,24 @@ function createWasteCard(waste) {
 }
 
 function addDeleteEvent(button) {
-    button.addEventListener('click', function() {alert('Nailed It!')})
+    button.addEventListener('click', event => {
+        deleteWaste(button.id)
+        deleteWasteElement(button)
+    })
 }
 
-function deleteWaste() {
+function deleteWasteElement(element) {
+    element.parentElement.remove()
+}
 
+function deleteWaste(id) {
+    let config = {
+        method: 'DELETE',
+        body: JSON.stringify({
+            waste_id: id
+        })
+    }
+    fetch(WASTES_URL + `${id}`, config)
 }
 
 
