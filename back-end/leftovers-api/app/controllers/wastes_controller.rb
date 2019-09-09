@@ -2,12 +2,12 @@ class WastesController < ApplicationController
     def index
         wastes = Waste.all
 
-        render json: WasteSerializer.new(wastes)
+        render json: wastes
     end
 
     def show
         waste = Waste.find_by(id: params[:id])
 
-        render json: WasteSerializer.new(waste)
+        render json: waste
     end
 end

@@ -1,3 +1,3 @@
 class User < ApplicationRecord
-    has_many :waste
+    has_many :wastes
 end

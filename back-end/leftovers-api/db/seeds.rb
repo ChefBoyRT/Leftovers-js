@@ -58,7 +58,7 @@ waste2 = Waste.create(
                       expirationdate: Date.new(2019, 9, 7), 
                       quantity: 1.5, 
                       value: 5.25, 
-                      user_id: user2.id, 
+                      user_id: user1.id, 
                       disposalmethod_id: donated.id, 
                       disposalreason_id: spoiled.id, 
                       foodcategory_id: red_meat.id
