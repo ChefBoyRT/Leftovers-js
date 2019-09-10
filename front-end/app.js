@@ -23,7 +23,7 @@ function showData(wastes) {
 function createWasteCard(waste) {
     // debugger
     let wasteCard = document.createElement('div')
-    let foodName = document.createElement('h3')
+    let foodName = document.createElement('h5')
     let expirationDate = document.createElement('p')
     let daysToExpiration = document.createElement('p')
     let quantity = document.createElement('p')
@@ -31,6 +31,7 @@ function createWasteCard(waste) {
     let deleteButton = document.createElement('button')
     let updateButton = document.createElement('button')
     let buttons = document.createElement('div')
+    let cardHeader = document.createElement('div')
 
     foodName.textContent = waste.food_name
     expirationDate.textContent = waste.expiration_date
@@ -47,12 +48,16 @@ function createWasteCard(waste) {
     addUpdateEvent(updateButton, waste)
 
     buttons.append(updateButton, deleteButton)
-    wasteCard.append(foodName, daysToExpiration, quantity, value, buttons)
+    cardHeader.append(foodName)
+    wasteCard.append(cardHeader, daysToExpiration, quantity, value, buttons)
     cardContainer.appendChild(wasteCard)
 
     wasteCard.classList.add("waste-card")
     cardContainer.classList.add("card-container")
+    deleteButton.classList.add('delete-button')
+    updateButton.classList.add('update-button')
     buttons.classList.add('waste-card-buttons')
+    cardHeader.classList.add('waste-card-header')
 
     cardsDiv.append(cardContainer)
 }
