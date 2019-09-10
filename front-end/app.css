@@ -27,21 +27,21 @@
     margin: 20px;
     text-align: center;
     padding: 10px;
-    box-shadow: 5px 5px 5px lightgrey;
+    box-shadow: 5px 5px 5px 5px lightgrey;
     position: relative;
 }
 
 .waste-card-header {
     border-bottom: 1.25px solid;
     margin-bottom: 2em;
-    padding: .5em;
+    padding: .25em;
 }
 
 .waste-card-header h5 {
     font-weight: bold;
-    font-size: 1.5em;
+    font-size: 1.75em;
     /* background-color: #5a8deca9; */
-    padding: .25em;
+    padding: .1em;
 }
 
 form {
@@ -49,7 +49,9 @@ form {
     margin: 4px;
     background-color: #a0a2a5;
     text-align: left;
-    color: black;
+    color: rgb(59, 56, 56);
+    font-weight: bold;
+    box-shadow: 3px 3px 3px lightgrey;
 }
 
 form h5 {
@@ -91,3 +93,13 @@ form h5 {
 button {
     font-family: 'Roboto', sans-serif !important;
 }
+
+label {
+    margin-left: 1em;
+}
+
+select {
+    margin-left: .25em;
+    margin-right: .25em;
+}
+
