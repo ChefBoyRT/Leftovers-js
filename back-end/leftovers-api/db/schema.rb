@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 2019_09_09_020843) do
     t.string "name"
     t.date "expirationdate"
     t.float "quantity"
+    t.string "quantity_unit"
     t.float "value"
     t.integer "user_id"
     t.integer "disposalmethod_id"

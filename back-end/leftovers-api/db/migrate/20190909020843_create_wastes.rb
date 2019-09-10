@@ -4,6 +4,7 @@ class CreateWastes < ActiveRecord::Migration[5.2]
       t.string :name
       t.date :expirationdate
       t.float :quantity
+      t.string :quantity_unit
       t.float :value
       t.references :user, foreign_key: true
       t.references :disposalmethod, foreign_key: true

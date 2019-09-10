@@ -16,6 +16,7 @@ class UsersController < ApplicationController
             food_name: waste.name,
             expiration_date: waste.expirationdate,
             quantity: waste.quantity,
+            quantity_unit: waste.quantity_unit,
             value: waste.value,
             disposal_method: waste.disposalmethod,
             disposal_reason: waste.disposalreason,
