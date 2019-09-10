@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
+* {
+    font-family: 'Roboto', sans-serif !important;
+}
+
+#cardsDiv {
+    padding: 5px;
+}
+
+.card-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+
+.hidden {
+    display: none !important; 
+}
+
+.waste-card {
+    border-style: solid;
+    border-width: 1.5px;
+    width: 200px;
+    margin: 20px;
+    text-align: center;
+    padding: 10px;
+}
+
+form {
+    padding: 20px;
+    margin: 4px;
+    background-color: rgb(224,224,224);
+}
+.navbar.navbar-expand-lg.navbar-light.bg-light {
+    background-color: black !important;
+    padding: 20px !important;
+}
+
+.navbar-brand {
+    color: white !important;
+}
+
+.nav-item.nav-link {
+    color: white !important;
+   
+}
+
+.waste-card-buttons {
+    padding: 2px;
+    margin: 2px;
+}

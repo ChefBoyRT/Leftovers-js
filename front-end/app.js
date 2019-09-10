@@ -3,9 +3,12 @@ const USERS_URL = `${BASE_URL}/users/`
 const WASTES_URL = `${BASE_URL}/wastes/`
 
 const $body = document.body
+const $main = document.querySelector('main')
+const cardsDiv = document.querySelector('#cardsDiv')
 const addFoodForm = document.querySelector('.add-food-form')
+const updateFoodForm = document.querySelector('.update-food-form')
 const cardContainer = document.createElement('div')
-const user_id = 1
+const user_id = 3
 
 function getUserWastes() {
     fetch(`${USERS_URL}${user_id}`)
@@ -27,6 +30,7 @@ function createWasteCard(waste) {
     let value = document.createElement('p')
     let deleteButton = document.createElement('button')
     let updateButton = document.createElement('button')
+    let buttons = document.createElement('div')
 
     foodName.textContent = waste.food_name
     expirationDate.textContent = waste.expiration_date
@@ -40,14 +44,17 @@ function createWasteCard(waste) {
     updateButton.id = waste.id
 
     addDeleteEvent(deleteButton)
+    addUpdateEvent(updateButton, waste)
 
-    wasteCard.append(foodName, daysToExpiration, quantity, value, deleteButton, updateButton)
+    buttons.append(updateButton, deleteButton)
+    wasteCard.append(foodName, daysToExpiration, quantity, value, buttons)
     cardContainer.appendChild(wasteCard)
 
     wasteCard.classList.add("waste-card")
     cardContainer.classList.add("card-container")
+    buttons.classList.add('waste-card-buttons')
 
-    $body.append(cardContainer)
+    cardsDiv.append(cardContainer)
 }
 
 function dateDifference(expirationDate) {
@@ -68,14 +75,62 @@ function dateDifference(expirationDate) {
     return daysToExpiration
 }
 
-function addDeleteEvent(button) {
+function addDeleteEvent(button, waste) {
     button.addEventListener('click', event => {
         deleteWaste(button.id, button)
         deleteWasteElement(button)
     })
 }
 
+function addUpdateEvent(button, waste) {
+    // debugger
+    button.addEventListener('click', event => {
+        updateFoodForm.id = waste.id
+        updateFoodForm.classList.remove('hidden')
+        addFoodForm.classList.add('hidden')
+        updateFoodForm[0].value = waste.food_name
+        updateFoodForm[1].value = waste.expiration_date
+        updateFoodForm[2].value = waste.quantity
+        updateFoodForm[3].value = waste.quantity_unit
+        updateFoodForm[4].value = waste.value
+        updateFoodForm[5].value = waste.food_category.name
+    })
+}
+
+function updateWaste() {
+    let formData = new FormData(updateFoodForm)
+    let foodName = formData.get('food-name')
+    let expirationDate = formData.get('expiration-date')
+    let quantity = parseFloat(formData.get('quantity'), 10)
+    let quantityUnit = formData.get('unit')
+    let foodCategory = formData.get('foodcategory')
+    let cost = parseFloat(formData.get('cost'), 10)
+    let id = parseInt(event.target.id)
+    
+    fetch(`${WASTES_URL}${id}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            id: id,
+            name: foodName,
+            expirationdate: expirationDate,
+            quantity: quantity,
+            quantity_unit: quantityUnit,
+            user_id: user_id,
+            foodcategory_id: foodCategory,
+            value: cost
+        })
+    }).then(response => response.json())
+    .then(response => console.log(response))
+
+    updateFoodForm.classList.add('hidden')
+    addFoodForm.classList.remove('hidden')
+}
+
 addFoodForm.addEventListener('submit', addFoodWaste)
+updateFoodForm.addEventListener('submit', updateWaste)
 
 function addFoodWaste() {
     let formData = new FormData(addFoodForm)
