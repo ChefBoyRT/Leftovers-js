@@ -3,8 +3,9 @@ const USERS_URL = `${BASE_URL}/users/`
 const WASTES_URL = `${BASE_URL}/wastes/`
 
 const $body = document.body
+const addFoodForm = document.querySelector('.add-food-form')
 const cardContainer = document.createElement('div')
-let user_id = 1
+const user_id = 3
 
 function getUserWastes() {
     fetch(`${USERS_URL}${user_id}`)
@@ -42,16 +43,44 @@ function createWasteCard(waste) {
 
 function addDeleteEvent(button) {
     button.addEventListener('click', event => {
-        deleteWaste(button.id)
+        deleteWaste(button.id, button)
         deleteWasteElement(button)
     })
+}
+
+addFoodForm.addEventListener('submit', addFoodWaste)
+
+function addFoodWaste() {
+    let formData = new FormData(addFoodForm)
+    let foodName = formData.get('food-name')
+    let expirationDate = formData.get('expiration-date')
+    let quantity = parseInt(formData.get('quantity'), 10)
+    let foodCategory = formData.get('foodcategory')
+
+    // debugger
+
+    fetch(WASTES_URL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            name: foodName,
+            expirationdate: expirationDate,
+            quantity: quantity,
+            user_id: user_id,
+            foodcategory_id: foodCategory
+        })
+    })
+    // let foodName = 
+
 }
 
 function deleteWasteElement(element) {
     element.parentElement.remove()
 }
 
-function deleteWaste(id) {
+function deleteWaste(id, button) {
     let config = {
         method: 'DELETE',
         body: JSON.stringify({
