@@ -16,10 +16,12 @@ trash = Disposalmethod.create(name: 'Trash')
 composte = Disposalmethod.create(name: 'Composte')
 donated = Disposalmethod.create(name: 'Donated')
 given_to_friend = Disposalmethod.create(name: 'Given To Friend')
+blank = Disposalmethod.create(name: 'blank')
 
 expired = Disposalreason.create(name: 'Expired')
 spoiled = Disposalreason.create(name: 'Expired')
 over_produced = Disposalreason.create(name: 'Over Produced')
+blank = Disposalreason.create(name: 'blank')
 
 vegetable = Foodcategory.create(name: 'Vegetable')
 legume = Foodcategory.create(name: 'Legume')
@@ -29,6 +31,7 @@ fish = Foodcategory.create(name: 'Fish')
 shellfish = Foodcategory.create(name: 'Shellfish')
 pork = Foodcategory.create(name: 'Pork')
 poultry = Foodcategory.create(name: 'Poultry')
+blank = Foodcategory.create(name: 'blank')
 
 user1 = User.create(
                     name: 'Taylor', 
