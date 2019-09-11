@@ -9,17 +9,16 @@ const addFoodForm = document.querySelector('.add-food-form')
 const updateFoodForm = document.querySelector('.update-food-form')
 const logInForm = document.querySelector('.login-form')
 const cardContainer = document.createElement('div')
-const user_id = 3
+const dummyCard = document.createElement('div')
 
-function logIn() {
-    $main.classList.add('hidden')
-    logInForm.classList.remove('hidden')
-}
+// function logIn() {
+//     $main.classList.add('hidden')
+//     logInForm.classList.remove('hidden')
+// }
 
 function userShowPage() {
     logInForm.classList.add('hidden')
-    addFoodForm.classList.remove('hidden')
-    cardsDiv.classList.remove('hidden')
+    // $main.classList.remove('hidden')
 }
 
 function fetchUser() {
@@ -40,11 +39,12 @@ function fetchUser() {
             password: password
         })
     }).then(response => response.json())
-    .then(response => {return response})
+    .then(getUserWastes)
 }
 
-function getUserWastes() {
-    fetch(`${USERS_URL}${user_id}`)
+function getUserWastes(num) {
+    userShowPage()
+    fetch(`${USERS_URL}${num}`)
         .then(response => response.json())
         .then(showData)
 }
@@ -54,6 +54,7 @@ function showData(wastes) {
 }
 
 function createWasteCard(waste) {
+    debugger
     let wasteCard = document.createElement('div')
     let foodName = document.createElement('h5')
     let expirationDate = document.createElement('p')
@@ -73,9 +74,13 @@ function createWasteCard(waste) {
     value.textContent = `$${waste.value}`
     deleteButton.textContent = 'Delete'
     updateButton.textContent = 'Update'
+
+    dummyCard.textContent = "+"
     
     deleteButton.id = waste.id
     updateButton.id = waste.id
+    cardInfo.id = waste.user_id
+    addFoodForm.id = waste.user_id
 
     addDeleteEvent(deleteButton)
     addUpdateEvent(updateButton, waste)
@@ -84,15 +89,23 @@ function createWasteCard(waste) {
     cardHeader.append(foodName)
     cardInfo.append(daysToExpiration, quantity, value, buttons)
     wasteCard.append(cardHeader, cardInfo)
-    cardContainer.appendChild(wasteCard)
+    cardContainer.append(wasteCard)
+    cardContainer.prepend(dummyCard)
+
 
     wasteCard.classList.add("waste-card")
+    dummyCard.classList.add("waste-card")
+    dummyCard.classList.add("dummy-card")
     cardContainer.classList.add("card-container")
     deleteButton.classList.add('delete-button')
     updateButton.classList.add('update-button')
     buttons.classList.add('waste-card-buttons')
     cardHeader.classList.add('waste-card-header')
     cardInfo.classList.add('waste-card-info')
+    foodName.classList.add('food-name')
+    daysToExpiration.classList.add('days-to-expiration')
+    quantity.classList.add('quantity')
+    value.classList.add('value')
 
     cardsDiv.append(cardContainer)
 }
@@ -123,7 +136,6 @@ function addDeleteEvent(button, waste) {
 }
 
 function addUpdateEvent(button, waste) {
-    // debugger
     button.addEventListener('click', event => {
         updateFoodForm.id = waste.id
         updateFoodForm.classList.remove('hidden')
@@ -134,6 +146,7 @@ function addUpdateEvent(button, waste) {
         updateFoodForm[3].value = waste.quantity_unit
         updateFoodForm[4].value = waste.value
         updateFoodForm[5].value = waste.food_category.name
+        updateFoodForm[6].value = waste.user_id
     })
 }
 
@@ -146,6 +159,7 @@ function updateWaste() {
     let foodCategory = formData.get('foodcategory')
     let cost = parseFloat(formData.get('cost'), 10)
     let id = parseInt(event.target.id)
+    let user_id = formData.get('user_id')
     
     fetch(`${WASTES_URL}${id}`, {
         method: 'PATCH',
@@ -162,12 +176,23 @@ function updateWaste() {
             foodcategory_id: foodCategory,
             value: cost
         })
-    })
+    }).then(response => response.json())
+    .then(waste => renderUpdatedWasteCard(waste))
+}
+
+function renderUpdatedWasteCard(waste) {
+    let card = document.getElementById(`${waste.user_id}`)
+
+    card.parentElement.querySelector('h5').innerText = waste.name
+    card.querySelector('.days-to-expiration').innerText = dateDifference(waste.expirationdate) + ' days'
+    card.querySelector('.quantity').innerText = `${waste.quantity} ${waste.quantity_unit}`
+    card.querySelector('.value').innerText = `$${waste.value}`
+    
     updateFoodForm.classList.add('hidden')
-    addFoodForm.classList.remove('hidden')
 }
 
 function addFoodWaste() {
+    // debugger
     let formData = new FormData(addFoodForm)
     let foodName = formData.get('food-name')
     let expirationDate = formData.get('expiration-date')
@@ -175,8 +200,7 @@ function addFoodWaste() {
     let quantity_unit = formData.get('unit')
     let foodCategory = formData.get('foodcategory')
     let cost = parseFloat(formData.get('cost'), 10)
-
-    // debugger
+    let user_id = parseInt(addFoodForm.id, 10)
 
     fetch(WASTES_URL, {
         method: 'POST',
@@ -192,7 +216,61 @@ function addFoodWaste() {
             foodcategory_id: foodCategory,
             value: cost
         })
-    })
+    }).then(response => response.json())
+    .then(waste => renderWasteCard(waste))
+    addFoodForm.classList.add('hidden')
+}
+
+function renderWasteCard(waste) {
+        // debugger
+        let wasteCard = document.createElement('div')
+        let foodName = document.createElement('h5')
+        let expirationDate = document.createElement('p')
+        let daysToExpiration = document.createElement('p')
+        let quantity = document.createElement('p')
+        let value = document.createElement('p')
+        let deleteButton = document.createElement('button')
+        let updateButton = document.createElement('button')
+        let buttons = document.createElement('div')
+        let cardHeader = document.createElement('div')
+        let cardInfo = document.createElement('div')
+        // debugger
+        foodName.textContent = waste.name
+        expirationDate.textContent = waste.expirationdate
+        daysToExpiration.textContent = dateDifference(waste.expirationdate) + ' days'
+        quantity.textContent = `${waste.quantity} ${waste.quantity_unit}`
+        value.textContent = `$${waste.value}`
+        deleteButton.textContent = 'Delete'
+        updateButton.textContent = 'Update'
+        
+        deleteButton.id = waste.id
+        updateButton.id = waste.id
+        cardInfo.id = waste.user_id
+        addFoodForm.id = waste.user_id
+    
+        addDeleteEvent(deleteButton)
+        addUpdateEvent(updateButton, waste)
+    
+        buttons.append(updateButton, deleteButton)
+        cardHeader.append(foodName)
+        cardInfo.append(daysToExpiration, quantity, value, buttons)
+        wasteCard.append(cardHeader, cardInfo)
+        cardContainer.append(wasteCard)
+    
+    
+        wasteCard.classList.add("waste-card")
+        cardContainer.classList.add("card-container")
+        deleteButton.classList.add('delete-button')
+        updateButton.classList.add('update-button')
+        buttons.classList.add('waste-card-buttons')
+        cardHeader.classList.add('waste-card-header')
+        cardInfo.classList.add('waste-card-info')
+        foodName.classList.add('food-name')
+        daysToExpiration.classList.add('days-to-expiration')
+        quantity.classList.add('quantity')
+        value.classList.add('value')
+    
+        cardsDiv.append(cardContainer)
 }
 
 function deleteWasteElement(element) {
@@ -209,9 +287,24 @@ function deleteWaste(id) {
     fetch(WASTES_URL + `${id}`, config)
 }
 
-addFoodForm.addEventListener('submit', addFoodWaste)
-updateFoodForm.addEventListener('submit', updateWaste)
-logInForm.addEventListener('submit', fetchUser)
+addFoodForm.addEventListener('submit', event => {
+    event.preventDefault()
+    addFoodWaste()
+})
+updateFoodForm.addEventListener('submit', event => {
+    event.preventDefault()
+    updateWaste()
+})
+logInForm.addEventListener('submit', event => {
+    event.preventDefault()
+    fetchUser()
+})
 
+dummyCard.addEventListener('click', event => {
+    event.preventDefault()
+    addFoodForm.classList.remove('hidden')
+})
 
-getUserWastes()
+// getUserWastes()
+
+// logIn()
