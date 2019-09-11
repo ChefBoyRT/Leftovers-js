@@ -20,13 +20,14 @@ class WastesController < ApplicationController
         disposal_method_id = Disposalmethod.find_by(name: 'blank').id
         disposal_reason_id = Disposalreason.find_by(name: 'blank').id
         food_category_id = Foodcategory.find_by(name: params[:foodcategory_id].split('_').map(&:capitalize).join(' ')).id
-        
+        user_id = params[:user_id].to_i
+        # binding.pry
         waste = Waste.create(name: params[:name], 
                              expirationdate: params[:expirationdate], 
                              quantity: params[:quantity], 
                              quantity_unit: params[:quantity_unit],
                              value: params[:value],
-                             user_id: params[:user_id], 
+                             user_id: user_id, 
                              disposalmethod_id: disposal_method_id, 
                              disposalreason_id: disposal_reason_id, 
                              foodcategory_id: food_category_id
@@ -41,7 +42,8 @@ class WastesController < ApplicationController
         disposal_method_id = Disposalmethod.find_by(name: 'blank').id
         disposal_reason_id = Disposalreason.find_by(name: 'blank').id
         food_category_id = Foodcategory.find_by(name: params[:foodcategory_id].split('_').map(&:capitalize).join(' ')).id
-    
+        user_id = params[:user_id].to_i
+        # binding.pry
         waste.update(name: params[:name], 
                     expirationdate: params[:expirationdate], 
                     quantity: params[:quantity], 

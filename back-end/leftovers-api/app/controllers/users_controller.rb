@@ -11,8 +11,10 @@ class UsersController < ApplicationController
         all_user_waste = []
 
         users_wastes.each do |waste|
+            # binding.pry
         waste_object = {
             id: waste.id,
+            user_id: waste.user_id,
             food_name: waste.name,
             expiration_date: waste.expirationdate,
             quantity: waste.quantity,
@@ -36,9 +38,11 @@ class UsersController < ApplicationController
         # binding.pry
 
         if attempted_login
+            # binding.pry
             render json: attempted_login.id
         else
             new_user = User.create(name: params[:name], email: params[:email], password: params[:password])
+            # binding.pry
             render json: new_user.id
         end
     end
