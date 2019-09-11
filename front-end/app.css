@@ -30,6 +30,7 @@
     padding: 10px;
     box-shadow: 5px 5px 5px 5px lightgrey;
     position: relative;
+    border-radius: .5em;
 }
 
 .waste-card-info {
@@ -60,6 +61,11 @@ form {
     font-weight: bold;
     color: white;
     box-shadow: 2px 2px 2px 2px lightgrey;
+    border-radius: 1em;
+}
+
+.navbar-toggler-icon {
+    background-color: lightgrey !important;
 }
 
 form h5 {
