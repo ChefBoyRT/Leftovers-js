@@ -22,7 +22,7 @@
             </div>
         </nav>
         <section>
-            <form class="login-form hidden">
+            <form class="login-form">
                 <label for="email">Email:</label>
                 <input type="text" name="email">
                 <label for="password">Password:</label>
@@ -31,7 +31,7 @@
             </form>
         </section>
         <main>
-            <form class="add-food-form">
+            <form class="add-food-form hidden">
                 <h5>Add Food</h5>
                 <label for="food-name">Food Name:</label>
                 <input type="text" name="food-name">
@@ -56,6 +56,8 @@
                         <option value="Fish">Fish</option>
                         <option value="Pork">Pork</option>
                 </select>
+
+                <input type="hidden" name="user_id">
 
                 <input type="submit" value="Submit">
             </form>
@@ -85,6 +87,8 @@
                             <option value="Fish">Fish</option>
                             <option value="Pork">Pork</option>
                     </select>
+                    
+                    <input type="hidden" name="user_id">
         
                     <input type="submit" value="Submit">
                 </form>

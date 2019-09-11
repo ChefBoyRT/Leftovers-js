@@ -16,7 +16,7 @@
 }
 
 .hidden {
-    display: none !important; 
+    display: none !important;
 }
 
 .waste-card {
@@ -33,6 +33,15 @@
     border-radius: .5em;
 }
 
+.dummy-card {
+    font-size: 5em;
+    padding-top: .75em;
+    width: 200px;
+    height: 250px;
+    margin-top: .7em;
+    border-radius: .1em;
+}
+
 .waste-card-info {
     font-size: 1.25em;
 }
@@ -42,6 +51,7 @@
     margin-bottom: 2em;
     padding: .25em;
     background-color: rgba(255, 94, 91, 0.911);
+    border-radius: .25em;
     /* box-shadow: 2px 2px 2px lightgrey; */
 }
 
