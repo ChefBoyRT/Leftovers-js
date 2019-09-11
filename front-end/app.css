@@ -20,6 +20,7 @@
 }
 
 .waste-card {
+    background-color: #EEF0F2;
     border-style: solid;
     border-width: 1.5px;
     width: 300px;
@@ -31,27 +32,34 @@
     position: relative;
 }
 
+.waste-card-info {
+    font-size: 1.25em;
+}
+
 .waste-card-header {
-    border-bottom: 1.25px solid;
+    border: 2px solid;
     margin-bottom: 2em;
     padding: .25em;
+    background-color: rgba(255, 94, 91, 0.911);
+    /* box-shadow: 2px 2px 2px lightgrey; */
 }
 
 .waste-card-header h5 {
     font-weight: bold;
     font-size: 1.75em;
-    /* background-color: #5a8deca9; */
     padding: .1em;
+    color: white;
 }
 
 form {
     padding: 20px;
     margin: 4px;
-    background-color: #a0a2a5;
+    background-color: #284B63;
     text-align: left;
     color: rgb(59, 56, 56);
     font-weight: bold;
-    box-shadow: 3px 3px 3px lightgrey;
+    color: white;
+    box-shadow: 2px 2px 2px 2px lightgrey;
 }
 
 form h5 {
@@ -63,7 +71,7 @@ form h5 {
 }
 
 .navbar.navbar-expand-lg.navbar-light.bg-light {
-    background-color: #131720 !important;
+    background-color: #0B2027 !important;
     padding: 20px !important;
 }
 
@@ -92,10 +100,12 @@ form h5 {
 
 button {
     font-family: 'Roboto', sans-serif !important;
+    font-size: .75em;
 }
 
-label {
+form label {
     margin-left: 1em;
+    padding: .2em;
 }
 
 select {

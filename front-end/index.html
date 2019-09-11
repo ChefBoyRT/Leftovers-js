@@ -21,16 +21,25 @@
                 </div>
             </div>
         </nav>
+        <section>
+            <form class="login-form hidden">
+                <label for="email">Email:</label>
+                <input type="text" name="email">
+                <label for="password">Password:</label>
+                <input type="text" name="password">
+                <input type="submit" name="Submit">
+            </form>
+        </section>
         <main>
             <form class="add-food-form">
                 <h5>Add Food</h5>
-                <label for="food-name">Food Name</label>
+                <label for="food-name">Food Name:</label>
                 <input type="text" name="food-name">
                 
-                <label for="expiration-date">Expiration Date</label>
+                <label for="expiration-date">Expiration Date:</label>
                 <input type="date" name="expiration-date">
                 
-                <label for="quantity">Quantity</label>
+                <label for="quantity">Quantity:</label>
                 <input type="number" name="quantity" min="0" step="0.1">
 
                 <select name="unit">
@@ -38,7 +47,7 @@
                         <option value="oz">oz</option>
                 </select>
 
-                <label for="cost">Cost</label>
+                <label for="cost">Cost:</label>
                 <input type="number" name="cost" min="0" step="0.1">
 
                 <select name="foodcategory">
@@ -53,13 +62,13 @@
 
             <form class="update-food-form hidden">
                     <h5>Update Waste</h5>
-                    <label for="food-name">Food Name</label>
+                    <label for="food-name">Food Name:</label>
                     <input type="text" name="food-name">
                     
-                    <label for="expiration-date">Expiration Date</label>
+                    <label for="expiration-date">Expiration Date:</label>
                     <input type="date" name="expiration-date">
                     
-                    <label for="quantity">Quantity</label>
+                    <label for="quantity">Quantity:</label>
                     <input type="number" name="quantity" min="0" step="0.1">
         
                     <select name="unit">
@@ -67,7 +76,7 @@
                             <option value="oz">oz</option>
                     </select>
         
-                    <label for="cost">Cost</label>
+                    <label for="cost">Cost:</label>
                     <input type="number" name="cost" min="0" step="0.1">
         
                     <select name="foodcategory">
@@ -79,7 +88,7 @@
         
                     <input type="submit" value="Submit">
                 </form>
-                <div id="cardsDiv">
+                <div id="cardsDiv" class="">
 
                 </div>
             </main>

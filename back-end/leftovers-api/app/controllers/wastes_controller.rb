@@ -31,6 +31,7 @@ class WastesController < ApplicationController
                              disposalreason_id: disposal_reason_id, 
                              foodcategory_id: food_category_id
                              )
+        render json: waste
     end
 
     def update
@@ -50,6 +51,8 @@ class WastesController < ApplicationController
                     disposalmethod_id: disposal_method_id, 
                     disposalreason_id: disposal_reason_id, 
                     foodcategory_id: food_category_id)
+        
+        render json: waste
     end
     
 end

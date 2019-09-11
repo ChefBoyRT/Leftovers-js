@@ -30,4 +30,17 @@ class UsersController < ApplicationController
         render json: all_user_waste
     end
 
+    def create
+        # binding.pry
+        attempted_login = User.find_by(email: params[:email])
+        # binding.pry
+
+        if attempted_login
+            render json: attempted_login.id
+        else
+            new_user = User.create(name: params[:name], email: params[:email], password: params[:password])
+            render json: new_user.id
+        end
+    end
+
 end

@@ -7,8 +7,41 @@ const $main = document.querySelector('main')
 const cardsDiv = document.querySelector('#cardsDiv')
 const addFoodForm = document.querySelector('.add-food-form')
 const updateFoodForm = document.querySelector('.update-food-form')
+const logInForm = document.querySelector('.login-form')
 const cardContainer = document.createElement('div')
 const user_id = 3
+
+function logIn() {
+    $main.classList.add('hidden')
+    logInForm.classList.remove('hidden')
+}
+
+function userShowPage() {
+    logInForm.classList.add('hidden')
+    addFoodForm.classList.remove('hidden')
+    cardsDiv.classList.remove('hidden')
+}
+
+function fetchUser() {
+    let formData = new FormData(logInForm)
+    let email = formData.get('email')
+    let password = formData.get('password')
+    let name = "blank"
+    // debugger
+
+    fetch('http://localhost:3000/users', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            name: name,
+            email: email,
+            password: password
+        })
+    }).then(response => response.json())
+    .then(response => {return response})
+}
 
 function getUserWastes() {
     fetch(`${USERS_URL}${user_id}`)
@@ -21,7 +54,6 @@ function showData(wastes) {
 }
 
 function createWasteCard(waste) {
-    // debugger
     let wasteCard = document.createElement('div')
     let foodName = document.createElement('h5')
     let expirationDate = document.createElement('p')
@@ -32,6 +64,7 @@ function createWasteCard(waste) {
     let updateButton = document.createElement('button')
     let buttons = document.createElement('div')
     let cardHeader = document.createElement('div')
+    let cardInfo = document.createElement('div')
 
     foodName.textContent = waste.food_name
     expirationDate.textContent = waste.expiration_date
@@ -49,7 +82,8 @@ function createWasteCard(waste) {
 
     buttons.append(updateButton, deleteButton)
     cardHeader.append(foodName)
-    wasteCard.append(cardHeader, daysToExpiration, quantity, value, buttons)
+    cardInfo.append(daysToExpiration, quantity, value, buttons)
+    wasteCard.append(cardHeader, cardInfo)
     cardContainer.appendChild(wasteCard)
 
     wasteCard.classList.add("waste-card")
@@ -58,6 +92,7 @@ function createWasteCard(waste) {
     updateButton.classList.add('update-button')
     buttons.classList.add('waste-card-buttons')
     cardHeader.classList.add('waste-card-header')
+    cardInfo.classList.add('waste-card-info')
 
     cardsDiv.append(cardContainer)
 }
@@ -127,15 +162,10 @@ function updateWaste() {
             foodcategory_id: foodCategory,
             value: cost
         })
-    }).then(response => response.json())
-    .then(response => console.log(response))
-
+    })
     updateFoodForm.classList.add('hidden')
     addFoodForm.classList.remove('hidden')
 }
-
-addFoodForm.addEventListener('submit', addFoodWaste)
-updateFoodForm.addEventListener('submit', updateWaste)
 
 function addFoodWaste() {
     let formData = new FormData(addFoodForm)
@@ -163,14 +193,13 @@ function addFoodWaste() {
             value: cost
         })
     })
-
 }
 
 function deleteWasteElement(element) {
-    element.parentElement.remove()
+    element.parentElement.parentElement.parentElement.remove()
 }
 
-function deleteWaste(id, button) {
+function deleteWaste(id) {
     let config = {
         method: 'DELETE',
         body: JSON.stringify({
@@ -179,6 +208,10 @@ function deleteWaste(id, button) {
     }
     fetch(WASTES_URL + `${id}`, config)
 }
+
+addFoodForm.addEventListener('submit', addFoodWaste)
+updateFoodForm.addEventListener('submit', updateWaste)
+logInForm.addEventListener('submit', fetchUser)
 
 
 getUserWastes()
