@@ -54,7 +54,7 @@ function showData(wastes) {
 }
 
 function createWasteCard(waste) {
-    debugger
+    // debugger
     let wasteCard = document.createElement('div')
     let foodName = document.createElement('h5')
     let expirationDate = document.createElement('p')
@@ -79,7 +79,7 @@ function createWasteCard(waste) {
     
     deleteButton.id = waste.id
     updateButton.id = waste.id
-    cardInfo.id = waste.user_id
+    cardInfo.id = waste.user_id + waste.user_id
     addFoodForm.id = waste.user_id
 
     addDeleteEvent(deleteButton)
@@ -160,7 +160,7 @@ function updateWaste() {
     let cost = parseFloat(formData.get('cost'), 10)
     let id = parseInt(event.target.id)
     let user_id = formData.get('user_id')
-    
+    debugger
     fetch(`${WASTES_URL}${id}`, {
         method: 'PATCH',
         headers: {
@@ -181,8 +181,8 @@ function updateWaste() {
 }
 
 function renderUpdatedWasteCard(waste) {
-    let card = document.getElementById(`${waste.user_id}`)
-
+    elementId = parseInt(waste.user_id) + parseInt(waste.user_id)
+    let card = document.getElementById(elementId) 
     card.parentElement.querySelector('h5').innerText = waste.name
     card.querySelector('.days-to-expiration').innerText = dateDifference(waste.expirationdate) + ' days'
     card.querySelector('.quantity').innerText = `${waste.quantity} ${waste.quantity_unit}`
@@ -192,7 +192,6 @@ function renderUpdatedWasteCard(waste) {
 }
 
 function addFoodWaste() {
-    // debugger
     let formData = new FormData(addFoodForm)
     let foodName = formData.get('food-name')
     let expirationDate = formData.get('expiration-date')
@@ -222,7 +221,6 @@ function addFoodWaste() {
 }
 
 function renderWasteCard(waste) {
-        // debugger
         let wasteCard = document.createElement('div')
         let foodName = document.createElement('h5')
         let expirationDate = document.createElement('p')
@@ -234,7 +232,7 @@ function renderWasteCard(waste) {
         let buttons = document.createElement('div')
         let cardHeader = document.createElement('div')
         let cardInfo = document.createElement('div')
-        // debugger
+        
         foodName.textContent = waste.name
         expirationDate.textContent = waste.expirationdate
         daysToExpiration.textContent = dateDifference(waste.expirationdate) + ' days'
@@ -302,6 +300,7 @@ logInForm.addEventListener('submit', event => {
 
 dummyCard.addEventListener('click', event => {
     event.preventDefault()
+    addFoodForm.reset()
     addFoodForm.classList.remove('hidden')
 })
 
