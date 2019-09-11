@@ -36,6 +36,7 @@ class WastesController < ApplicationController
     end
 
     def update
+        # binding.pry
         id = params[:id].to_i
         waste = Waste.find_by(id: id)
 
