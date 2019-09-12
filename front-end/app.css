@@ -50,12 +50,35 @@
     border: 2px solid;
     margin-bottom: 2em;
     padding: .25em;
-    background-color: rgba(255, 94, 91, 0.911);
+    /* background-color: rgba(255, 94, 91, 0.911); */
     border-radius: .25em;
-    /* box-shadow: 2px 2px 2px lightgrey; */
 }
 
-.waste-card-header h5 {
+.waste-card-header-red {
+    border: 2px solid;
+    margin-bottom: 2em;
+    padding: .25em;
+    background-color: rgba(255, 94, 91, 0.911);
+    border-radius: .25em;
+}
+
+.waste-card-header-yellow {
+    border: 2px solid;
+    margin-bottom: 2em;
+    padding: .25em;
+    background-color: rgba(235, 219, 78, 0.911);
+    border-radius: .25em;
+}
+
+.waste-card-header-green {
+    border: 2px solid;
+    margin-bottom: 2em;
+    padding: .25em;
+    background-color: rgba(79, 224, 75, 0.911);
+    border-radius: .25em;
+}
+
+.food-name h5 {
     font-weight: bold;
     font-size: 1.75em;
     padding: .1em;
@@ -72,6 +95,13 @@ form {
     color: white;
     box-shadow: 2px 2px 2px 2px lightgrey;
     border-radius: 1em;
+}
+
+.login-form {
+    width: 700px;
+    margin-left: 350px;
+    margin-top: 50px;
+    display: block;
 }
 
 .navbar-toggler-icon {

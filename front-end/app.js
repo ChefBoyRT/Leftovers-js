@@ -11,14 +11,8 @@ const logInForm = document.querySelector('.login-form')
 const cardContainer = document.createElement('div')
 const dummyCard = document.createElement('div')
 
-// function logIn() {
-//     $main.classList.add('hidden')
-//     logInForm.classList.remove('hidden')
-// }
-
 function userShowPage() {
     logInForm.classList.add('hidden')
-    // $main.classList.remove('hidden')
 }
 
 function fetchUser() {
@@ -26,7 +20,6 @@ function fetchUser() {
     let email = formData.get('email')
     let password = formData.get('password')
     let name = "blank"
-    // debugger
 
     fetch('http://localhost:3000/users', {
         method: 'POST',
@@ -54,7 +47,6 @@ function showData(wastes) {
 }
 
 function createWasteCard(waste) {
-    // debugger
     let wasteCard = document.createElement('div')
     let foodName = document.createElement('h5')
     let expirationDate = document.createElement('p')
@@ -79,19 +71,11 @@ function createWasteCard(waste) {
     
     deleteButton.id = waste.id
     updateButton.id = waste.id
-    cardInfo.id = waste.user_id + waste.user_id
+    cardInfo.id = waste.user_id + waste.id
     addFoodForm.id = waste.user_id
 
     addDeleteEvent(deleteButton)
     addUpdateEvent(updateButton, waste)
-
-    buttons.append(updateButton, deleteButton)
-    cardHeader.append(foodName)
-    cardInfo.append(daysToExpiration, quantity, value, buttons)
-    wasteCard.append(cardHeader, cardInfo)
-    cardContainer.append(wasteCard)
-    cardContainer.prepend(dummyCard)
-
 
     wasteCard.classList.add("waste-card")
     dummyCard.classList.add("waste-card")
@@ -101,11 +85,19 @@ function createWasteCard(waste) {
     updateButton.classList.add('update-button')
     buttons.classList.add('waste-card-buttons')
     cardHeader.classList.add('waste-card-header')
+    dynamicCardColors(cardHeader, daysToExpiration)
     cardInfo.classList.add('waste-card-info')
     foodName.classList.add('food-name')
     daysToExpiration.classList.add('days-to-expiration')
     quantity.classList.add('quantity')
     value.classList.add('value')
+
+    buttons.append(updateButton, deleteButton)
+    cardHeader.append(foodName)
+    cardInfo.append(daysToExpiration, quantity, value, buttons)
+    wasteCard.append(cardHeader, cardInfo)
+    cardContainer.append(wasteCard)
+    cardContainer.prepend(dummyCard)
 
     cardsDiv.append(cardContainer)
 }
@@ -181,7 +173,7 @@ function updateWaste() {
 }
 
 function renderUpdatedWasteCard(waste) {
-    elementId = parseInt(waste.user_id) + parseInt(waste.user_id)
+    elementId = parseInt(waste.user_id) + parseInt(waste.id)
     let card = document.getElementById(elementId) 
     card.parentElement.querySelector('h5').innerText = waste.name
     card.querySelector('.days-to-expiration').innerText = dateDifference(waste.expirationdate) + ' days'
@@ -261,7 +253,7 @@ function renderWasteCard(waste) {
         deleteButton.classList.add('delete-button')
         updateButton.classList.add('update-button')
         buttons.classList.add('waste-card-buttons')
-        cardHeader.classList.add('waste-card-header')
+        dynamicCardColors(cardHeader, daysToExpiration)
         cardInfo.classList.add('waste-card-info')
         foodName.classList.add('food-name')
         daysToExpiration.classList.add('days-to-expiration')
@@ -285,6 +277,22 @@ function deleteWaste(id) {
     fetch(WASTES_URL + `${id}`, config)
 }
 
+function dynamicCardColors(element, daysToExpiration) {
+    splitDay = daysToExpiration.textContent.split(' ')[0]
+    daysInt = parseInt(splitDay)
+    
+    if (daysInt < 4) {
+        element.classList.add('waste-card-header-red')
+        element.classList.add('food-name')
+    } else if (daysInt > 3 && daysInt < 7) {
+        element.classList.add('waste-card-header-yellow')
+        element.classList.add('food-name')
+    } else {
+        element.classList.add('waste-card-header-green')
+        element.classList.add('food-name')
+    }
+}
+
 addFoodForm.addEventListener('submit', event => {
     event.preventDefault()
     addFoodWaste()
@@ -303,7 +311,3 @@ dummyCard.addEventListener('click', event => {
     addFoodForm.reset()
     addFoodForm.classList.remove('hidden')
 })
-
-// getUserWastes()
-
-// logIn()
