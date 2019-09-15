@@ -88,7 +88,7 @@ function dynamicCardColors(element, daysToExpiration) {
 To-do list:
 * Refactor “code smell”
 * Add API functionality to return a recipe for food items approaching their expiration dates
-* Add a waste table for users to historical waste statistics
+* Add a waste table for users to track historical waste statistics
 * Display users waste statistics on a dashboard
 
 ## Status
