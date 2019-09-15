@@ -38,12 +38,13 @@
     padding-top: .75em;
     width: 200px;
     height: 250px;
-    margin-top: .7em;
+    margin-top: .58em;
     border-radius: .1em;
 }
 
 .waste-card-info {
     font-size: 1.25em;
+    font-weight: bold;
 }
 
 .waste-card-header {
@@ -58,7 +59,7 @@
     border: 2px solid;
     margin-bottom: 2em;
     padding: .25em;
-    background-color: rgba(255, 94, 91, 0.911);
+    background-color: rgba(231, 78, 78, 0.911);
     border-radius: .25em;
 }
 
@@ -66,7 +67,7 @@
     border: 2px solid;
     margin-bottom: 2em;
     padding: .25em;
-    background-color: rgba(235, 219, 78, 0.911);
+    background-color: rgba(240, 195, 50, 0.911);
     border-radius: .25em;
 }
 
@@ -74,14 +75,14 @@
     border: 2px solid;
     margin-bottom: 2em;
     padding: .25em;
-    background-color: rgba(79, 224, 75, 0.911);
+    background-color: rgba(77, 199, 72, 0.911);
     border-radius: .25em;
 }
 
 .food-name h5 {
     font-weight: bold;
     font-size: 1.75em;
-    padding: .1em;
+    padding-top: .2em;
     color: white;
 }
 
@@ -99,9 +100,20 @@ form {
 
 .login-form {
     width: 700px;
-    margin-left: 350px;
-    margin-top: 50px;
-    display: block;
+    align-content: center;
+    display: flex;
+    margin-top: 5em;
+}
+
+.login-form input {
+    margin-left: 1.5em;
+}
+
+section {
+    justify-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .navbar-toggler-icon {
@@ -141,7 +153,14 @@ form h5 {
 }
 .update-button {
     margin-right: 20px;
-    margin-left: 60px;
+    margin-left: 65px;
+    border-radius: .25em;
+    border: darkgrey 1.5px solid;
+}
+
+.delete-button {
+    border-radius: .25em;
+    border: darkgrey 1.5px solid;
 }
 
 button {

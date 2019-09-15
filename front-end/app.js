@@ -281,10 +281,10 @@ function dynamicCardColors(element, daysToExpiration) {
     splitDay = daysToExpiration.textContent.split(' ')[0]
     daysInt = parseInt(splitDay)
     
-    if (daysInt < 4) {
+    if (daysInt <= 3) {
         element.classList.add('waste-card-header-red')
         element.classList.add('food-name')
-    } else if (daysInt > 3 && daysInt < 7) {
+    } else if (daysInt >= 4 && daysInt < 7) {
         element.classList.add('waste-card-header-yellow')
         element.classList.add('food-name')
     } else {
